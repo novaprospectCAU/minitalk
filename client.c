@@ -36,7 +36,7 @@ void	transmit_signal(pid_t pid, char *str, size_t len)
 	}
 }
 
-void	error_output(int err_num)
+int	error_output(int err_num)
 {
 	if (err_num == 0)
 		ft_printf("Invalid input. I think you missed PID or input String.\n");
@@ -44,6 +44,7 @@ void	error_output(int err_num)
 		ft_printf("invalid input, Your PID has gone beyond the boundary.\n");
 	else
 		ft_printf("Error : dynamic allocation error occurred\n");
+	return (0);
 }
 
 int	main(int argc, char *argv[])
