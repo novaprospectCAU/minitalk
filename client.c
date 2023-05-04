@@ -67,5 +67,6 @@ int	main(int argc, char *argv[])
 	if (str == NULL)
 		return (error_output(2));
 	transmit_signal(pid, str, length);
+
 	return (0);
 }

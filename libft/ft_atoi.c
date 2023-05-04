@@ -68,10 +68,8 @@ static int	fs_atoi(const char *nptr, int mflag)
 
 int	ft_atoi(const char *nptr)
 {
-	int	result;
 	int	mflag;
 
-	result = 0;
 	mflag = 1;
 	while (*nptr && (*nptr == ' ' || *nptr == '\t' || *nptr == '\n' || \
 			*nptr == '\v' || *nptr == '\f' || *nptr == '\r'))

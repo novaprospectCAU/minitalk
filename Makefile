@@ -1,36 +1,37 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-CLINAME = client
-CLISRCS = client.c
-SERNAME = server
-SERSRCS = server.c
+CLIENTTARGET = client
+CLIENTSRCS = client.c
+SERVERTARGET = server
+SERVERSRCS = server.c
 LIBFT = libft
-CLIOBJS = $(CLISRCS:.c=.o)
-SEROBJS = $(SERSRCS:.c=.o)
+LIBFTLIB = libft/libft.a libft/ft_printf/libftprintf.a
+CLIENTOBJS = $(CLIENTSRCS:.c=.o)
+SERVEROBJS = $(SERVERSRCS:.c=.o)
 OBJS = $(SRCS:.c=.o)
 
 %.o : %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ 
+	@$(CC) $(CFLAGS) -c $^
 
-$(CLINAME) : $(CLIOBJS)
-	@$(CC) $(CFLAGS) -o $@ $^
+$(CLIENTTARGET) : $(CLIENTOBJS)
+	@$(CC) $(CFLAGS) $^ $(LIBFTLIB) -o $@
 
-$(SERNAME) : $(SEROBJS)
-	@$(CC) $(CFLAGS) -o $@ $^
-
-all : $(CLINAME) $(SERNAME)
+$(SERVERTARGET) : $(SERVEROBJS)
 	@make -C $(LIBFT) all
+	@$(CC) $(CFLAGS) $^ $(LIBFTLIB) -o $@
+
+all : $(SERVERTARGET) $(CLIENTTARGET)
 
 clean :
-	@rm -rf $(CLIOBJS) $(SEROBJS)
+	@rm -rf $(CLIENTOBJS) $(SERVEROBJS)
 	@make -C $(LIBFT) clean
 
 fclean : clean
-	@rm -rf $(SERNAME) $(CLINAME)
+	@rm -rf $(SERVERTARGET) $(CLIENTTARGET)
 	@make -C $(LIBFT) fclean
 
 re : 
-	$(MAKE) fclean
-	$(MAKE) all
+	@$(MAKE) fclean
+	@$(MAKE) all
 
 .PHONY : all clean fclean re bonus
